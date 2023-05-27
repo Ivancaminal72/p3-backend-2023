@@ -10,22 +10,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Input {
-  id  Int  @id @default(autoincrement())
-  new Int? @unique
-  old Int? @unique
-
-  groupId Int
-  group   Group @relation(fields: [groupId], references: [id])
-
-  systemId Int
-  system   System @relation(fields: [systemId], references: [id])
-}
-
-model Output {
-  id  Int  @id @default(autoincrement())
-  new Int? @unique
-  old Int? @unique
+model Link {
+  id      Int  @id @default(autoincrement())
+  new_in  Int? @unique
+  new_out Int? @unique
+  old_in  Int? @unique
+  old_out Int? @unique
 
   groupId Int
   group   Group @relation(fields: [groupId], references: [id])
@@ -35,15 +25,13 @@ model Output {
 }
 
 model Group {
-  id      Int      @id @default(autoincrement())
-  group   String
-  inputs  Input[]
-  outputs Output[]
+  id    Int    @id @default(autoincrement())
+  group String
+  link  Link[]
 }
 
 model System {
-  id      Int      @id @default(autoincrement())
-  system  String
-  inputs  Input[]
-  outputs Output[]
+  id     Int    @id @default(autoincrement())
+  system String
+  link   Link[]
 }
