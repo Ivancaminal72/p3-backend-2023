@@ -12,6 +12,7 @@ datasource db {
 
 model Link {
   id      Int  @id @default(autoincrement())
+  link    String
   new_in  Int? @unique
   new_out Int? @unique
   old_in  Int? @unique
@@ -26,12 +27,12 @@ model Link {
 
 model Group {
   id    Int    @id @default(autoincrement())
-  group String
+  group String @unique
   link  Link[]
 }
 
 model System {
   id     Int    @id @default(autoincrement())
-  system String
+  system String @unique
   link   Link[]
 }
